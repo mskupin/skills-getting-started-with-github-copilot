@@ -38,6 +38,42 @@ activities = {
         "schedule": "Mondays, Wednesdays, Fridays, 2:00 PM - 3:00 PM",
         "max_participants": 30,
         "participants": ["john@mergington.edu", "olivia@mergington.edu"]
+    },
+    "Basketball Team": {
+        "description": "Join competitive basketball practices and team games",
+        "schedule": "Tuesdays and Thursdays, 4:00 PM - 5:30 PM",
+        "max_participants": 16,
+        "participants": []
+    },
+    "Soccer Club": {
+        "description": "Practice soccer skills and play friendly matches",
+        "schedule": "Saturdays, 9:00 AM - 11:00 AM",
+        "max_participants": 24,
+        "participants": []
+    },
+    "Theater Club": {
+        "description": "Explore acting, stagecraft, and performing arts",
+        "schedule": "Wednesdays, 5:00 PM - 6:30 PM",
+        "max_participants": 20,
+        "participants": []
+    },
+    "Art Studio": {
+        "description": "Create visual art with drawing, painting, and sculpture",
+        "schedule": "Mondays, 3:30 PM - 5:00 PM",
+        "max_participants": 18,
+        "participants": []
+    },
+    "Debate Society": {
+        "description": "Build reasoning and communication skills through debates",
+        "schedule": "Sundays, 1:00 PM - 2:30 PM",
+        "max_participants": 16,
+        "participants": []
+    },
+    "Robotics Lab": {
+        "description": "Design and program robots to solve engineering challenges",
+        "schedule": "Fridays, 4:00 PM - 6:00 PM",
+        "max_participants": 20,
+        "participants": []
     }
 }
 
@@ -61,7 +97,9 @@ def signup_for_activity(activity_name: str, email: str):
 
     # Get the specific activity
     activity = activities[activity_name]
-
+# Validate student is not already signed up
+    if email in activity["participants"]:
+        raise HTTPException(status_code=400, detail="Student already signed up for this activity")  
     # Add student
     activity["participants"].append(email)
     return {"message": f"Signed up {email} for {activity_name}"}
